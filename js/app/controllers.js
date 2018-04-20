@@ -4,7 +4,7 @@
 	function ($scope, $http, notify, XMIService){
 		  
       notify({
-  		        message: "Спасибо, что посетили проект",		            
+  		        message: "Merci de visiter le projet",		            
   		        templateUrl: '',
   		        position: 'left',
   		        classes: '',
@@ -12,65 +12,65 @@
         	  }); 
 
 
-	    // Инициализируем коллекцию всех моделей диаграммы.
+	  // Initialise la collection de tous les modèles de graphique.
       var graph = new joint.dia.Graph;
 
-      // Инициализируем представление для всех элементов диаграммы.
+      // Initialise la vue pour tous les éléments du graphique.
       var paper = new joint.dia.Paper({
-          el: $('#paper'), // Привязываем к конкретному элементу страницы.
-          width: 2000, // Задаем ширину области представления.
-          height: 2000, // Задаем высоту области представления.
-          gridSize: 5, // Задаем размер сетки представления.
-          model: graph //Привязываем представление к модели.
+          el: $ ('#paper'), // Lie à un élément spécifique de la page.
+          width: 2000, // Définit la largeur de la zone d'affichage.
+          height: 2000, // Spécifie la hauteur de la zone d'affichage.
+          gridSize: 5, // Définit la taille de la grille de la vue.
+          model: graph // Liez la vue au modèle.
       });
 
-      // Инициализируем шаблоны uml.
+      // Initialise les modèles uml.
       var uml = joint.shapes.uml;
 
-      // Инициализируем переменную, которая будет хранить текущий выбранный класс (для последующего его обновления).
+      // Initialise la variable qui stockera la classe actuellement sélectionnée (pour mise à jour ultérieure).
       var curClass = {};
 
-      // Инициализируем объект, который будет хранить все классы диаграммы.
+      // Initialise l'objet qui va stocker toutes les classes de graphique.
       var classes = {};
 
-      // Инициализируем представления для отображения информации о классе в боковом меню.
+      // Initialise les vues pour afficher des informations sur la classe dans la barre latérale.
       $scope.className = {};
       $scope.classMethods = [];
       $scope.classAttributes = [];
       $scope.size = {};
 
-      // Инициализируем переменную для закрытия DOM элементов для работы с классом.
+      // Initialise la variable pour fermer les éléments DOM pour travailler avec la classe.
       $scope.showClassProperties = {
       	condition: false,
-      	message: "Элемент не выбран"
+        message: "Aucun élément sélectionné"
       };
 
-      // Событие скрола мышки, вызывает функция увеличения/уменьшения масштаба области представления.
+      // L'événement a fait défiler la souris, appelle la fonction de zoom avant / arrière de la zone d'affichage.
       paper.$el.on('mousewheel DOMMouseScroll', onMouseWheel);
 
-      // Функция увеличения/уменьшения масштаба области представления.
+      // Fonction de zoom avant / arrière de la zone d'affichage.
       function onMouseWheel(e) {      	
   	    e.preventDefault();
   	    e = e.originalEvent;	    
   	    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))) / 50;
 
-        // OffsetX не определен в FF.
+        // OffsetX n'est pas défini dans FF.
   	    var offsetX = (e.offsetX || e.clientX - $(this).offset().left); 
 
-        // OffsetY не определен в FF.
+        // OffsetY n'est pas défini dans FF.
   	    var offsetY = (e.offsetY || e.clientY - $(this).offset().top); 
   	    var p = offsetToLocalPoint(offsetX, offsetY);
 
-        // Текущий масштаб представления изменяется по дельта.
+        // L'échelle de vue actuelle change de delta.
   	    var newScale = V(paper.viewport).scale().sx + delta; 
   	    if (newScale > 0.4 && newScale < 2) {
 
-            // Сброс предыдущего сдвига.
+            // Réinitialise le décalage précédent.
   	        paper.setOrigin(0, 0); 
   	        paper.scale(newScale, newScale, p.x, p.y);
   	    }
 
-        //Трансформируем точку в систему координат окна просмотра.
+        // Transforme le point dans le système de coordonnées de la fenêtre.
   	    function offsetToLocalPoint(x, y) {
   		    var svgPoint = paper.svg.createSVGPoint();
   		    svgPoint.x = x;
@@ -80,7 +80,7 @@
   		  }
 	    }
 
-	    // Функция сброса всех условий выбора элементов на создание.
+	  // Fonction de réinitialisation de toutes les conditions de sélection des éléments à créer.
       $scope.refreshConditions = function(){      	
         $scope.classCondition = false;
         $scope.interfaceCondition = false;
@@ -92,21 +92,21 @@
         $scope.source = undefined;
         $scope.target = undefined;
       };
-      // Вызов функции сброса всех условий выбора элементов на создание.
+      // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
       $scope.refreshConditions();
       
-      // Событие клика на элемент диаграммы.
+      // Cliquez sur l'événement dans l'élément de graphique.
       paper.on('cell:pointerdown', function(cellView, evt, x, y) {
-        // Если мы кликнули по классу (не по связи).        
+        // Si nous avons cliqué sur une classe (pas par lien).
         if (cellView.model.toJSON().umlType == "Class"){
 
-          // Инициализируем переменную с классом svg элемента, по которому кликнули.
+          // Initialise la variable avec la classe svg de l'élément sur lequel on a cliqué.
           var svgClass = evt.target.parentNode.getAttribute('class');
 
-          // Открываем боковую панель с названием класса.
+          // Ouvre la barre latérale avec le nom de la classe.
           $scope.statusClassNameOpen  = true;
 
-          // Если кликнули на svg элемент удаления класса.
+          // Si vous cliquez sur svg, l'élément de suppression de classe.
           if (svgClass == 'element-tool-remove') {           
             curClass = cellView.model.toJSON().id;
             $scope.deleteClass();
@@ -117,26 +117,26 @@
             $scope.$apply();
             return;
           }
-          // Если кликнули на любую область svg элемента, кроме крестика.
+          // Si vous cliquez sur une zone de l'élément svg, excepté la croix.
           else {
 
-          // Если перед кликом была выбрана связь, то инициализируем элементы для создания связи.
+          // Si un lien a été sélectionné avant le clic, initialisez les éléments pour créer le lien.
           if ($scope.referenceCondition == true) {
 
-            // Если это первый элемент для связи, то задаем начало связи.
+            // Si c'est le premier élément de communication, alors nous définissons le début de la connexion.
             if (!$scope.source) {            
               $scope.source = cellView.model.toJSON().id;            
             }
-            // Если это не первый элемент для связи, то задаем конец связи.
+            // Si ce n'est pas le premier élément de communication, alors nous définissons la fin de la connexion.
             else {
               $scope.target = cellView.model.toJSON().id;            
               if ($scope.source != $scope.target) {
 
-                // Switch для создания связей.
+                // Basculer pour créer des liens.
                 switch (true) {
                   case $scope.associationCondition:
 
-                    // Инициализация связи ассоциация.
+                    // Initialise l'association d'association.
                     var assosiation = new uml.Association({
                                                             source: {id: $scope.source}, 
                                                             target: {id: $scope.target},
@@ -145,15 +145,15 @@
                                                                       { position: -25, attrs: { text: { text: '1' } } }]
                                                           });
 
-                    // Добавляем новую связь к коллекции моделей диаграммы.
+                    // Ajouter un nouveau lien à la collection de modèles de graphiques.
                     graph.addCell(assosiation);
 
-                    // Вызов функции сброса всех условий выбора элементов на создание.
+                    // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
                     $scope.refreshConditions();            
                     break;
                   case $scope.compositionCondition:
 
-                    //Инициализация связи композиция.
+                    // Initialise la composition du lien.
                     var composition = new uml.Composition({
                                                             source: {id: $scope.source}, 
                                                             target: {id: $scope.target},
@@ -162,46 +162,46 @@
                                                                       { position: -25, attrs: { text: { text: '1' } } }]
                                                           });
 
-                    // Добавляем новую связь к коллекции моделей диаграммы.
+                    // Ajouter un nouveau lien à la collection de modèles de graphiques.
                     graph.addCell(composition);
 
-                    // Вызов функции сброса всех условий выбора элементов на создание.
+                    // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
                     $scope.refreshConditions();            
                     break;
                   case $scope.generalizationCondition:
 
-                    // инициализация связи наследование.
+                    // initialise le lien d'héritage.
                     var generalization = new uml.Generalization({
                                                                   source: {id: $scope.source}, 
                                                                   target: {id: $scope.target}
                                                                 });
 
-                    // Добавляем новую связь к коллекции моделей диаграммы.
+                    // Ajouter un nouveau lien à la collection de modèles de graphiques.
                     graph.addCell(generalization);
 
-                    // Вызов функции сброса всех условий выбора элементов на создание.
+                    // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
                     $scope.refreshConditions();            
                     break;
                 }                
               }
               else {                
                 notify({
-                message: "на данный момент такая связь не предусмотрена",               
+                message: "Pour le moment, une telle connexion n'est pas fournie",
                 templateUrl: '',
                 position: 'right',
                 classes: "alert-danger",
                 duration: 5000
                 });                
-                // Вызов функции сброса всех условий выбора элементов на создание.
+                // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
                 $scope.refreshConditions();
               }
             }        
           }
 
-          //присваиваем текущий класс        
+          // affecter la classe actuelle
           curClass = cellView.model.toJSON().id;
 
-          // Инициализируем представления для отображения информации о классе в боковом меню.
+          // Initialise les vues pour afficher des informations sur la classe dans la barre latérale.
           $scope.classMethods = cellView.model.toJSON().methods;
           $scope.classAttributes = cellView.model.toJSON().attributes;
           $scope.className = { 
@@ -212,13 +212,13 @@
             height: cellView.model.toJSON().size.height
           };
 
-          // Убираем заглушку на то, что класс не выбран.          
+          // Supprime le talon pour s'assurer que la classe n'est pas sélectionnée.
           $scope.showClassProperties.condition = true;
 
-          // Вызываем функцию инициализации типов для бокового меню.            
+          // Appelez la fonction d'initialisation de type pour le menu latéral.
           typesInit();
 
-          // Обновляем все представления.
+          // Mettre à jour toutes les vues.
           $scope.$apply();
 
           }
@@ -226,95 +226,95 @@
         }        
       });      
 	  
-      // Cобытие клика на пустую область диаграммы.
+      // Cliquez sur la zone vide du graphique.
       paper.on('blank:pointerdown', function(evt, xPosition, yPosition) {
       	
-        // Ставим заглушку на то, что класс не выбран.        
+        // Mettre un talon pour s'assurer que la classe n'est pas sélectionnée.
       	$scope.showClassProperties.condition = false;
       	
-        // Switch для создания класса.      	
+        // Basculer pour créer une classe.
         switch (true) {
 
-          // Сase создания класса.
+          // Crée la classe.
           case $scope.classCondition: 
 
-            // Инициализируем новый uml class из шаблонов с join.uml.           
+            // Initialise la nouvelle classe uml à partir des templates avec join.uml.
             var newClass = new uml.Class();
 
-            // Добавляем новый класс в объект с классами.               
+            // Ajoute une nouvelle classe à l'objet avec les classes.
             classes[newClass.id] = newClass;
 
-            // Функция инициализации нового класса.          
+            // La fonction pour initialiser une nouvelle classe.
             classInit(newClass);
 
-            // Вызов функции сброса всех условий выбора элементов на создание.
+            // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
             $scope.refreshConditions();
 
-            // Открываем боковую панель с названием класса.
+            // Ouvre la barre latérale avec le nom de la classe.
             $scope.statusClassNameOpen  = true; 
             break;
 
-          // Сase создания интерфейса.
+          // Crée l'interface.
           case $scope.interfaceCondition:
 
-            // Инициализируем новый uml interface из шаблонов с join.uml.
+            // Initialise la nouvelle interface uml à partir des templates avec join.uml.
             var newClass = new uml.Interface();
 
-            //Добавляем новый класс в объект с классами. 
+            // Ajoute une nouvelle classe à l'objet avec les classes.
             classes[newClass.id] = newClass;
 
-            //функция инициализации нового класса.  
+            // la fonction d'initialisation d'une nouvelle classe.
             classInit(newClass); 
 
-            // Вызов функции сброса всех условий выбора элементов на создание.
+            // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
             $scope.refreshConditions();
 
-            // Открываем боковую панель с названием класса.
+            // Ouvre la barre latérale avec le nom de la classe.
             $scope.statusClassNameOpen = true;
             break;
 
-          // Сase создания абстрактного класса.  
+          // Crée une classe abstraite.
           case $scope.abstractCondition:
 
-            // Инициализируем новый uml interface из шаблонов с join.uml.
+            // Initialise la nouvelle interface uml à partir des templates avec join.uml.
             var newClass = new uml.Abstract();
 
-            // Добавляем новый класс в объект с классами. 
+            // Ajoute une nouvelle classe à l'objet avec les classes.
             classes[newClass.id] = newClass;
 
-            // Функция инициализации нового класса.   
+            // La fonction pour initialiser une nouvelle classe.
             classInit(newClass); 
 
-            // Вызов функции сброса всех условий выбора элементов на создание.
+            // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
             $scope.refreshConditions();
 
             $scope.statusClassNameOpen  = true;
             break;
 
-          // Сase создания связи (сбрасывает все выбранные ранее условия выбора).
+          // Crée une connexion (réinitialise toutes les conditions de sélection précédemment sélectionnées).
           case $scope.referenceCondition:
 
-            // Вызов функции сброса всех условий выбора элементов на создание.
+            // Appelez la fonction pour réinitialiser toutes les conditions de sélection pour la création.
             $scope.refreshConditions();            
             break;
         }
 
         function classInit(newClass) {
 
-          //Добавляем необходимые атрибуты классу.         
+          // Ajoute les attributs nécessaires à la classe.
           classes[newClass.id].attributes.position = { x:xPosition  , y: yPosition};
           classes[newClass.id].attributes.size= { width: 150, height: 100 };
           classes[newClass.id].setClassName("NewClass");
           classes[newClass.id].attributes.attributes = [];
           classes[newClass.id].attributes.methods = [];
 
-          //Добавляем новый класс в коллекция элементов.                   
+          // Ajouter une nouvelle classe à la collection d'éléments.
           graph.addCell(classes[newClass.id]);
 
-          //Присваиваем текущий класс.          
+          // Affecte la classe en cours.
           curClass = newClass.id;
 
-          // Инициалириуем DOM элементы  для работы с классом.
+          // Initialise les éléments DOM pour travailler avec la classe.
           $scope.showClassProperties.condition = true;   
           $scope.className = {name: "NewClass"};
           $scope.classMethods = [];
@@ -328,7 +328,8 @@
         }                            
       });
 
-	    // Функция инициализирующая типы: types, methodTypes и typesWithClasses.
+
+      // Fonction d'initialisation des types: types, types de méthode et typesWithClasses.
       function typesInit() {
         $scope.types = [ 
           "String", 
@@ -356,12 +357,12 @@
         };     
       };
 
-      // Функция изменения размеров класса.
+      // La fonction de redimensionnement d'une classe.
       $scope.changeSize = function(){           	
       	classes[curClass].resize($scope.size.width, $scope.size.height);      	
       }
 
-      // Функция удаления класса.
+       // La fonction pour supprimer une classe.
       $scope.deleteClass = function() {        
         classes[curClass].remove();             
         delete classes[curClass];       
@@ -372,7 +373,7 @@
                  
       }
 
-      // Функция изменения имени, методов или атрибутов класса.
+       // Fonction pour changer le nom, les méthodes ou les attributs d'une classe.
       $scope.changeClassDetails = function() {
         classes[curClass].setClassName($scope.className.name);        
         updateAttributes(); 
@@ -380,7 +381,7 @@
 
       };
 
-      // Функция добавления атрибута.
+       // Fonction d'ajout d'un attribut.
       $scope.addAtr = function() {
         newAttribute = {
           name: "Newattribute",
@@ -390,13 +391,13 @@
         updateAttributes();        
       };
 
-      // Функция удаления атрибута.
+       // Fonctionne pour supprimer l'attribut.
       $scope.deleteAtr = function(index) {        
         $scope.classAttributes.splice(index, 1);        
         updateAttributes();        
       };
 
-      // Функция добавления метода.
+       // Fonction d'ajout d'une méthode.
       $scope.addMethod = function(){
         newMethod = {
           name: "NewMethod",
@@ -407,13 +408,13 @@
         updateMethods();
       };
 
-      // Функция удаления метода.
+       // Fonction pour supprimer une méthode.
       $scope.deleteMethod = function(index){              
         $scope.classMethods.splice(index, 1);                
         updateMethods(); 
       }
 
-      // Функция добавления параметра.
+       // Fonction d'ajout d'un paramètre.
       $scope.addParam = function(index) {
         newParam = {
           name: "NewParam",
@@ -423,13 +424,13 @@
         updateMethods();
       }
 
-      // Функция удаления параметра.
+       // Fonction de suppression de paramètre.
       $scope.deleteParam = function(index, parent) {
         $scope.classMethods[parent.$index].parameters.splice(index, 1);            
         updateMethods();
       }; 
 
-      // Функция обновления арибутов у элемента диаграммы
+       // Fonction de mise à jour Aribut pour l'élément de graphique
       function updateAttributes(){
         var attributes = []; 
         classes[curClass].attributes.attributes=$scope.classAttributes;               
@@ -442,7 +443,7 @@
         });
         classes[curClass].setAttrs(attributes);
       };
-      // функция обновления методов у элемента диаграммы
+       // la fonction de mise à jour de la méthode pour l'élément de graphique
       function updateMethods(){
         var methods = [];
         classes[curClass].attributes.methods = $scope.classMethods;             
@@ -469,9 +470,9 @@
         });        
         classes[curClass].setMethods(methods);
       };
-      // экспорт xmi
+       // exporter xmi
 	  $scope.exportXMI = function(){
-	  	// вызываем сервис XMIService, передаем в него все элементы диаграммы, возвратит XMI в строке
+        // appelle le service XMIService, lui passe tous les éléments du graphique, renvoie le XMI dans la ligne
         var content = XMIService.export(graph.toJSON().cells);
         if (content){
           var blob = new Blob([content], { type: 'text/plain' });
