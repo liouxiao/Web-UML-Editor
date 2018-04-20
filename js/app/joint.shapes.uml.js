@@ -103,9 +103,13 @@ joint.shapes.uml.Class = joint.shapes.basic.Generic.extend({
 
             var lines = _.isArray(rect.text) ? rect.text : [rect.text];
            
-	    	var rectHeight = lines.length * 20 + 30;
+	    var rectHeight = lines.length * 20 + 30;
             
             attrs['.uml-class-' + rect.type + '-text'].text = lines.join('\n');
+            if(rect.type=="name")
+                attrs['.uml-class-' + rect.type + '-text'].transform = 'translate(100,'+ (offsetY+10) + ')';
+            else
+                attrs['.uml-class-' + rect.type + '-text'].transform = 'translate(10,'+ (offsetY+10) + ')';
             attrs['.uml-class-' + rect.type + '-rect'].height = rectHeight;
             attrs['.uml-class-' + rect.type + '-rect'].transform = 'translate(0,'+ offsetY + ')';
 
