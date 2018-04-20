@@ -23,12 +23,12 @@
 		        <div class="container">
 		            <div class="navbar-header">		                
 		                <div class="navbar-brand">
-		                	UML редактор
+		                	Éditeur UML
 		                </div>
 		                <ul class="nav navbar-nav">
 		                	<li>
 		                		<a class="exportXMI navbar-brand" ng-click="exportXMI()" ng-href="{{url}}">
-		                	Экспорт XMI
+		                	Exportation de XMI
 		                		</a>
 		                	</li>		                	
 		                </ul>             		                
@@ -39,30 +39,32 @@
         	<div class="body-container">
         		<div class="uml-full-container">
         			<div class="uml-container">
-        				<!-- Вызов функции сброса всех условий выбора -->
+        				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection -->
         				<button class=" btn mouse" ng-click="refreshConditions()">        				      					
         				</button>
-        				<!-- Вызов функции сброса всех условий выбора, и объявления переменной условия выбора класса  -->
+        				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration d'une variable de condition de sélection de classe  -->
         				<button class="btn class" ng-click="refreshConditions();classCondition=true">
-        					Class          					
+        					Classe
         				</button>
-        				<!-- Вызов функции сброса всех условий выбора, и объявления переменной условия выбора интерфейса  -->
-        				<button class="btn interface" ng-click="refreshConditions();interfaceCondition=true">        				Interface	
+        				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration d'une variable de condition d'interface  -->
+        				<button class="btn interface" ng-click="refreshConditions();interfaceCondition=true">
+                            Interface	
         				</button>
-        				<!-- Вызов функции сброса всех условий выбора, и объявления переменной условия выбора абстрактого класса  -->
-        				<button class="btn abstract" ng-click="refreshConditions();abstractCondition=true">        					Abstract
+        				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration d'une variable de la condition de sélection de la classe abstraite  -->
+        				<button class="btn abstract" ng-click="refreshConditions();abstractCondition=true">
+                            Abstract
         				</button>
-        				<!-- Вызов функции сброса всех условий выбора, и объявления переменной условия выбора связи ассоциация  -->
+        				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration de la variable de l'association de conditions de sélection de communication  -->
         				<button class="btn assosiation" ng-click="refreshConditions();associationCondition=true;referenceCondition=true">
-        					Association	
+        					Association
         				</button>
-        				<!-- Вызов функции сброса всех условий выбора, и объявления переменной условия выбора связи композиция  -->
+        				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration d'une variable de condition pour la sélection d'une composition de lien  -->
         				<button class="btn composition" ng-click="refreshConditions();compositionCondition=true;referenceCondition=true">
-        					Composition		
+        					Composition
         				</button>
-        				<!-- Вызов функции сброса всех условий выбора, и объявления переменной условия выбора связи наследования -->
+        				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration de la variable de la condition de sélection de la relation d'héritage -->
         				<button class="btn generalization" ng-click="refreshConditions();generalizationCondition=true;referenceCondition=true">
-        					Generalization	
+        					Généralisation
         				</button>        				      				          				
         			</div>
         		</div>
@@ -74,7 +76,7 @@
 	        		<accordion close-others="oneAtATime"> 
 		        		<accordion-group is-open="statusClassNameOpen ">
 						    <accordion-heading>
-						        Класс
+						        Classe
 						        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusClassNameOpen, 'glyphicon-chevron-right': !statusClassNameOpen }">						        	
 						        </i>
 						    </accordion-heading>
@@ -85,14 +87,14 @@
 						    	<input type="className" class="form-control myInput"  data-ng-model="className.name"  id="field" ng-change="changeClassDetails()">
 						    	<div style="padding: 0px 0px 0px 20px;">
 						    		<label for="width">
-						    			Ширина: 
+						    			Largeur: 
 						    			<span class="pull-right">
 						    				<span ng-bind="size.width"  class="ng-binding"></span> 
 						    			</span>
 						    		</label>
 						    		<input type="range" ng-change="changeSize()" ng-model="size.width" min="110" max="500" step="10" style="width: 140px" class="ng-valid ng-dirty">
 						    		<label for="height">
-						    			Высота: 
+						    			Hauteur: 
 						    			<span class="pull-right">
 						    				<span ng-bind="size.height"  class="ng-binding"></span> 
 						    			</span>
@@ -107,14 +109,14 @@
 						</accordion-group>
 						<accordion-group is-open="statusAttr">
 						    <accordion-heading>						    
-						        Атрибуты 
+						        Attributs 
 						        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusAttr, 'glyphicon-chevron-right': !statusAttr}">						        	
 						        </i>
 						    </accordion-heading>
 						    <div ng-show="showClassProperties.condition">
 						    	<a class="btn btn-link" ng-click="addAtr()">
 						    		<i class="icon-plus-sign">						    			
-						    		</i> Добавить атрибут
+						    		</i> Ajouter un attribut
 						    	</a>						    	
 							    <div class="attributeContainer" ng-repeat="attribute in classAttributes" style="margin: 5px 0px 5px 0px;">
 								    <a class="btn btn-link" ng-click="deleteAtr($index)">
@@ -123,7 +125,7 @@
 							        <input type="className" ng-model="attribute.name" ng-change="changeClassDetails()" class="form-control myInput" id="className">
 							        <select class="selectType" data-ng-model="attribute.type" ng-options="type for type in types" ng-change="changeClassDetails()">
 	                					<option  value="">
-	                						Выбрать тип
+	                						Sélectionnez le type
 	                					</option>
 	            					</select>
 								</div>			
@@ -134,14 +136,14 @@
 						</accordion-group>
 						<accordion-group is-open="statusMethod">
 						    <accordion-heading>
-						        Методы 
+						        Méthodes 
 						        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusMethod, 'glyphicon-chevron-right': !statusMethod}"></i>
 						    </accordion-heading>
 						    <div ng-show="showClassProperties.condition">
 						    	<a class="btn btn-link" ng-click="addMethod()">
 						    		<i class="icon-plus-sign">						    			
 						    		</i> 
-						    		Добавить метод
+						    		Ajouter une méthode
 						    	</a>						    	
 							    <div class="methodsContainer" ng-repeat="method in classMethods" style="  margin: 5px 0px 5px 0px;">
 							    	<a class="btn btn-link" ng-click="deleteMethod($index)">
@@ -150,13 +152,13 @@
 							        <input type="className" class="form-control myInput" ng-model="method.name" id="className" ng-change="changeClassDetails()">
 									<select class="selectType" data-ng-model="method.type" ng-options="methodType for methodType in methodTypes" ng-change="changeClassDetails()">
 	                					<option  value="">
-	                						Выбрать тип
+	                						Sélectionnez le type
 	                					</option>
 	            					</select>
 	            					<a class="btn btn-link" ng-click="addParam($index)" style="  margin: 0px 0px 0px 20px;">
 							    		<i class="icon-plus-sign">						    			
 							    		</i> 
-							    		Добавить параметр
+							    		Ajouter un paramètre
 						    		</a>									
 									<div class="paramContainer" ng-repeat="parameter in method.parameters" style="  margin: 5px 0px 0px 20px;">
 										<a class="btn btn-link" ng-click="deleteParam($index, $parent)">
@@ -165,7 +167,7 @@
 							        	<input type="className" ng-model="parameter.name" class="form-control myInput" id="className" ng-change="changeClassDetails()">
 										<select class="selectType" data-ng-model="parameter.type" ng-options="type for type in typesWithClasses" ng-change="changeClassDetails()">
 		                					<option  value="">
-		                						Выбрать тип
+		                						Sélectionnez le type
 		                					</option>
 	            						</select>
 									</div>
@@ -185,7 +187,7 @@
 	            <div class="row">
 	                <div class="col-md-6">
 	                    <p class="text-muted">
-	                    	Выполнил: Глухов Роман гр. AT5-14-1M
+	                    	Terminé: Glukhov Roman gr. AT5-14-1M
 	                    </p>
 	                </div>
 	                <div class="col-md-6">	                    
