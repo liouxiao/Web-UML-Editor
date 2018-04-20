@@ -10,7 +10,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 joint.shapes.uml = {}
 
 joint.shapes.uml.Class = joint.shapes.basic.Generic.extend({
-   // инициализация SVG разметки элемента:
+   // initialise le balisage SVG de l'élément:
     markup: [
         
         '<g class="rotatable">',
@@ -32,7 +32,7 @@ joint.shapes.uml.Class = joint.shapes.basic.Generic.extend({
 
         type: 'uml.Class',
         umlType: 'Class', 
-        //инициализация стилей       
+        // initialise les styles
         attrs: {
             rect: { 'width': 200},
             
