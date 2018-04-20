@@ -7,7 +7,7 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
         var references = [];    
         var superTypes = [];
         var classesForMethods = {};        
-        // пробегаемся по всем элементам диаграммы, заполняем eClasses, classes, references, superTypes   
+        // passe en revue tous les éléments du diagramme, remplis les eClasses, classes, références, superTypes
         _.each(diagramElements, function(object) {              
               switch (true) {
                 case (object.type == "uml.Class"):
@@ -15,11 +15,11 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
                   classesForMethods[object.name] = object.id;
                              
                   eClasses[object.id] = Ecore.EClass.create({ name: object.name });
-                  //добавляем атрибуты
+                   // ajouter des attributs
                   _.each(object.attributes, function(attribute) {                                         
                     var atr =  Ecore.EAttribute.create({ 
                                                         name: attribute.name, 
-                                                        eType: typeDefinition(attribute.type) // надо бы подумать делать ли так
+                                                        eType: typeDefinition(attribute.type) // il faudrait penser à le faire
                                                       });                      
                     eClasses[object.id].get('eStructuralFeatures').add(atr);                      
                   }); 
@@ -31,7 +31,7 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
                                                             name: object.name, 
                                                             interface: true
                                                           });
-                  //добавляем атрибуты
+                   // ajouter des attributs
                   _.each(object.attributes, function(attribute) {                        
                     var atr =  Ecore.EAttribute.create({ 
                                                         name: attribute.name, 
@@ -47,7 +47,7 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
                                                               name: object.name, 
                                                               abstract: true
                                                             });
-                  //добавляем атрибуты
+                   // ajouter des attributs
                   _.each(object.attributes, function(attribute){                        
                     var atr =  Ecore.EAttribute.create({ 
                                                         name: attribute.name, 
@@ -68,7 +68,7 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
             }                  
         });   
 
-       	// если диаграмма не пустая
+        // si le diagramme n'est pas vide
         if (classes.length != 0) {
           var p = Ecore.EPackage.create({
             name: 'p',
@@ -77,13 +77,13 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
           });
           var source;
           var target;
-          // добавляем связь наследования
+           // ajouter un lien d'héritage
           _.each(superTypes, function(superType) {
               source = superType.source.id;
               target = superType.target.id;
               eClasses[source].get("eSuperTypes").add(eClasses[target]);
             });
-          // добавляем остальные связи
+           // ajoute le reste des liens
           _.each(references, function(reference) {
               console.log(reference);
               source = reference.source.id;
@@ -97,7 +97,7 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
                 eClasses[source].get('eStructuralFeatures').add(reference);
               } 
             });
-          // добавляем методы и параметры
+           // ajouter des méthodes et des paramètres
           _.each(classes, function(object) {
             if (object.methods.length != 0) {
                 _.each(object.methods, function(method) {                    
@@ -133,7 +133,7 @@ angular.module('umlEditorApp').service('XMIService', function (notify){
         }
         else {
           notify({
-                message: "на диаграмме нет ни одного элемента",                
+                 message: "il n'y a pas d'élément sur le diagramme",
                 templateUrl: '',
                 position: 'right',
                 classes: "alert-danger",
