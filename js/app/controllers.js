@@ -4,7 +4,7 @@
 	function ($scope, $http, notify, XMIService){
 		  
       notify({
-  		        message: "Merci de visiter le projet",		            
+  		        message: "感谢您访问该项目",
   		        templateUrl: '',
   		        position: 'left',
   		        classes: '',
@@ -42,7 +42,7 @@
       // Initialise la variable pour fermer les éléments DOM pour travailler avec la classe.
       $scope.showClassProperties = {
       	condition: false,
-        message: "Aucun élément sélectionné"
+        message: "没有选中的编辑对象"
       };
 
       // L'événement a fait défiler la souris, appelle la fonction de zoom avant / arrière de la zone d'affichage.
@@ -186,7 +186,7 @@
               }
               else {                
                 notify({
-                message: "Pour le moment, une telle connexion n'est pas fournie",
+                message: "目前没有提供这种连接",
                 templateUrl: '',
                 position: 'right',
                 classes: "alert-danger",
@@ -329,7 +329,7 @@
       });
 
 
-      // Fonction d'initialisation des types: types, types de méthode et typesWithClasses.
+      // Initialization function of types: types, types of methods and typesWithClasses.
       function typesInit() {
         $scope.types = [ 
           "String", 
@@ -357,12 +357,12 @@
         };     
       };
 
-      // La fonction de redimensionnement d'une classe.
+      // Resize class function.
       $scope.changeSize = function(){           	
       	classes[curClass].resize($scope.size.width, $scope.size.height);      	
       }
 
-       // La fonction pour supprimer une classe.
+       // Delete class function. 
       $scope.deleteClass = function() {        
         classes[curClass].remove();             
         delete classes[curClass];       
@@ -373,7 +373,7 @@
                  
       }
 
-       // Fonction pour changer le nom, les méthodes ou les attributs d'une classe.
+       // Function to change the name, methods or attributes of a class.
       $scope.changeClassDetails = function() {
         classes[curClass].setClassName($scope.className.name);        
         updateAttributes(); 
@@ -381,7 +381,7 @@
 
       };
 
-       // Fonction d'ajout d'un attribut.
+       // Add attribute function.
       $scope.addAtr = function() {
         newAttribute = {
           name: "Newattribute",
@@ -391,13 +391,13 @@
         updateAttributes();        
       };
 
-       // Fonctionne pour supprimer l'attribut.
+       // Delete attribute function.
       $scope.deleteAtr = function(index) {        
         $scope.classAttributes.splice(index, 1);        
         updateAttributes();        
       };
 
-       // Fonction d'ajout d'une méthode.
+       // Add method function.
       $scope.addMethod = function(){
         newMethod = {
           name: "NewMethod",
@@ -408,13 +408,13 @@
         updateMethods();
       };
 
-       // Fonction pour supprimer une méthode.
+       // Delete method function.
       $scope.deleteMethod = function(index){              
         $scope.classMethods.splice(index, 1);                
         updateMethods(); 
       }
 
-       // Fonction d'ajout d'un paramètre.
+       // Add parameter function.
       $scope.addParam = function(index) {
         newParam = {
           name: "NewParam",
@@ -424,13 +424,13 @@
         updateMethods();
       }
 
-       // Fonction de suppression de paramètre.
+       // Parameter delete function.
       $scope.deleteParam = function(index, parent) {
         $scope.classMethods[parent.$index].parameters.splice(index, 1);            
         updateMethods();
       }; 
 
-       // Fonction de mise à jour Aribut pour l'élément de graphique
+       // Attribute update function for the chart element
       function updateAttributes(){
         var attributes = []; 
         classes[curClass].attributes.attributes=$scope.classAttributes;               
@@ -443,7 +443,7 @@
         });
         classes[curClass].setAttrs(attributes);
       };
-       // la fonction de mise à jour de la méthode pour l'élément de graphique
+       // the update function of the method for the chart element
       function updateMethods(){
         var methods = [];
         classes[curClass].attributes.methods = $scope.classMethods;             
@@ -472,7 +472,7 @@
       };
        // exporter xmi
 	  $scope.exportXMI = function(){
-        // appelle le service XMIService, lui passe tous les éléments du graphique, renvoie le XMI dans la ligne
+        // calls the XMIService service, passes it all the elements of the graph, returns the XMI 
         var content = XMIService.export(graph.toJSON().cells);
         if (content){
           var blob = new Blob([content], { type: 'text/plain' });

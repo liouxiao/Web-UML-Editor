@@ -23,12 +23,12 @@
 		        <div class="container">
 		            <div class="navbar-header">		                
 		                <div class="navbar-brand">
-		                	Éditeur UML
+		                	UML编辑器
 		                </div>
 		                <ul class="nav navbar-nav">
 		                	<li>
 		                		<a class="exportXMI navbar-brand" ng-click="exportXMI()" ng-href="{{url}}">
-		                	Exportation de XMI
+		                	导出XMI
 		                		</a>
 		                	</li>		                	
 		                </ul>             		                
@@ -44,7 +44,7 @@
         				</button>
         				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration d'une variable de condition de sélection de classe  -->
         				<button class="btn class" ng-click="refreshConditions();classCondition=true">
-        					Classe
+        					Class
         				</button>
         				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration d'une variable de condition d'interface  -->
         				<button class="btn interface" ng-click="refreshConditions();interfaceCondition=true">
@@ -64,7 +64,7 @@
         				</button>
         				<!-- Appel de la fonction de réinitialisation de toutes les conditions de sélection et déclaration de la variable de la condition de sélection de la relation d'héritage -->
         				<button class="btn generalization" ng-click="refreshConditions();generalizationCondition=true;referenceCondition=true">
-        					Généralisation
+        					Generalization
         				</button>        				      				          				
         			</div>
         		</div>
@@ -76,7 +76,7 @@
 	        		<accordion close-others="oneAtATime"> 
 		        		<accordion-group is-open="statusClassNameOpen ">
 						    <accordion-heading>
-						        Classe
+						        Class(类)
 						        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusClassNameOpen, 'glyphicon-chevron-right': !statusClassNameOpen }">						        	
 						        </i>
 						    </accordion-heading>
@@ -87,14 +87,14 @@
 						    	<input type="className" class="form-control myInput"  data-ng-model="className.name"  id="field" ng-change="changeClassDetails()">
 						    	<div style="padding: 0px 0px 0px 20px;">
 						    		<label for="width">
-						    			Largeur: 
+						    			宽: 
 						    			<span class="pull-right">
 						    				<span ng-bind="size.width"  class="ng-binding"></span> 
 						    			</span>
 						    		</label>
 						    		<input type="range" ng-change="changeSize()" ng-model="size.width" min="110" max="500" step="10" style="width: 140px" class="ng-valid ng-dirty">
 						    		<label for="height">
-						    			Hauteur: 
+						    			高: 
 						    			<span class="pull-right">
 						    				<span ng-bind="size.height"  class="ng-binding"></span> 
 						    			</span>
@@ -109,14 +109,14 @@
 						</accordion-group>
 						<accordion-group is-open="statusAttr">
 						    <accordion-heading>						    
-						        Attributs 
+						        Attribute(属性) 
 						        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusAttr, 'glyphicon-chevron-right': !statusAttr}">						        	
 						        </i>
 						    </accordion-heading>
 						    <div ng-show="showClassProperties.condition">
 						    	<a class="btn btn-link" ng-click="addAtr()">
 						    		<i class="icon-plus-sign">						    			
-						    		</i> Ajouter un attribut
+						    		</i> 添加属性
 						    	</a>						    	
 							    <div class="attributeContainer" ng-repeat="attribute in classAttributes" style="margin: 5px 0px 5px 0px;">
 								    <a class="btn btn-link" ng-click="deleteAtr($index)">
@@ -125,7 +125,7 @@
 							        <input type="className" ng-model="attribute.name" ng-change="changeClassDetails()" class="form-control myInput" id="className">
 							        <select class="selectType" data-ng-model="attribute.type" ng-options="type for type in types" ng-change="changeClassDetails()">
 	                					<option  value="">
-	                						Sélectionnez le type
+	                						选择类型
 	                					</option>
 	            					</select>
 								</div>			
@@ -136,14 +136,14 @@
 						</accordion-group>
 						<accordion-group is-open="statusMethod">
 						    <accordion-heading>
-						        Méthodes 
+						        Method(方法)
 						        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': statusMethod, 'glyphicon-chevron-right': !statusMethod}"></i>
 						    </accordion-heading>
 						    <div ng-show="showClassProperties.condition">
 						    	<a class="btn btn-link" ng-click="addMethod()">
 						    		<i class="icon-plus-sign">						    			
 						    		</i> 
-						    		Ajouter une méthode
+						    		添加方法
 						    	</a>						    	
 							    <div class="methodsContainer" ng-repeat="method in classMethods" style="  margin: 5px 0px 5px 0px;">
 							    	<a class="btn btn-link" ng-click="deleteMethod($index)">
@@ -152,13 +152,13 @@
 							        <input type="className" class="form-control myInput" ng-model="method.name" id="className" ng-change="changeClassDetails()">
 									<select class="selectType" data-ng-model="method.type" ng-options="methodType for methodType in methodTypes" ng-change="changeClassDetails()">
 	                					<option  value="">
-	                						Sélectionnez le type
+	                						选择类型
 	                					</option>
 	            					</select>
 	            					<a class="btn btn-link" ng-click="addParam($index)" style="  margin: 0px 0px 0px 20px;">
 							    		<i class="icon-plus-sign">						    			
 							    		</i> 
-							    		Ajouter un paramètre
+							    		添加参数
 						    		</a>									
 									<div class="paramContainer" ng-repeat="parameter in method.parameters" style="  margin: 5px 0px 0px 20px;">
 										<a class="btn btn-link" ng-click="deleteParam($index, $parent)">
@@ -167,7 +167,7 @@
 							        	<input type="className" ng-model="parameter.name" class="form-control myInput" id="className" ng-change="changeClassDetails()">
 										<select class="selectType" data-ng-model="parameter.type" ng-options="type for type in typesWithClasses" ng-change="changeClassDetails()">
 		                					<option  value="">
-		                						Sélectionnez le type
+		                						选择类型
 		                					</option>
 	            						</select>
 									</div>
@@ -187,7 +187,7 @@
 	            <div class="row">
 	                <div class="col-md-6">
 	                    <p class="text-muted">
-	                    	Terminé: Glukhov Roman gr. AT5-14-1M
+	                    	编辑器
 	                    </p>
 	                </div>
 	                <div class="col-md-6">	                    

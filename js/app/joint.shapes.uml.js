@@ -10,7 +10,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 joint.shapes.uml = {}
 
 joint.shapes.uml.Class = joint.shapes.basic.Generic.extend({
-   // initialise le balisage SVG de l'élément:
+   // initialize the SVG markup of the element
     markup: [
         
         '<g class="rotatable">',
@@ -22,7 +22,7 @@ joint.shapes.uml.Class = joint.shapes.basic.Generic.extend({
         '<g class="element-tools">',
         '<g class="element-tool-remove"><circle fill="red" r="11"/>',
         '<path transform="scale(.8) translate(-16, -16)" d="M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z"/>',
-        '<title>Remove this element from the model</title>',
+        '<title>从模型中删除此元素</title>',
         '</g>',
         '</g>',
         
@@ -42,15 +42,15 @@ joint.shapes.uml.Class = joint.shapes.basic.Generic.extend({
 
             '.uml-class-name-text': {
                 'ref': '.uml-class-name-rect', 'ref-y': .5, 'ref-x': .5, 'text-anchor': 'middle', 'y-alignment': 'middle', 'font-weight': 'bold',
-                'fill': 'black', 'font-size': 12, 'font-family': 'Times New Roman'
+                'fill': 'black', 'font-size': 12, 'font-family': 'Times New Roman;仿宋'
             },
             '.uml-class-attrs-text': {
                 'ref': '.uml-class-attrs-rect', 'ref-y': 5, 'ref-x': 5,
-                'fill': 'black', 'font-size': 12, 'font-family': 'Times New Roman'
+                'fill': 'black', 'font-size': 12, 'font-family': 'Times New Roman;仿宋'
             },
             '.uml-class-methods-text': {
                 'ref': '.uml-class-methods-rect', 'ref-y': 5, 'ref-x': 5,
-                'fill': 'black', 'font-size': 12, 'font-family': 'Times New Roman'
+                'fill': 'black', 'font-size': 12, 'font-family': 'Times New Roman;仿宋'
             }
         },
 
